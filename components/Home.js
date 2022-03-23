@@ -1,5 +1,6 @@
 import { RecyclerListView, DataProvider, LayoutProvider } from 'recyclerlistview';
 import { StyleSheet, View, Dimensions, Text, Image } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { FAB } from 'react-native-paper';
 
@@ -7,7 +8,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default function Home({ navigation })
 {
-    const [listContact, setListContact] = useState([{ id: 1, name: "phuoc", phone: "032", email: "@" }]);
+    const listContact = useSelector(state => state.contact);
 
     const _dataProvider = new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(listContact);
 

@@ -50,6 +50,6 @@ export const contactSlice = createSlice({
 });
 
 export const { SEED_CONTACT, DROP_CONTACT, CLEAR_CONTACT, GET_CONTACT,
-    ADD_CONTACT, UPDATE_CONTACT, DELETE_CONTACT } = contact.actions;
+    ADD_CONTACT, UPDATE_CONTACT, DELETE_CONTACT } = contactSlice.actions;
 
-export default contact.reducer;
+export default contactSlice.reducer;
