@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import NewContact from './components/NewContact';
 import useSQLite from "./hooks/useSQLite";
 import React, { useEffect } from 'react';
+import Detail from './components/Detail';
 import Home from './components/Home';
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +24,7 @@ export default function Navigation()
             }}>
                 <Stack.Screen name="Home" component={Home} options={{ title: "Home" }} />
                 <Stack.Screen name="NewContact" component={NewContact} options={{ title: "New Contact" }} />
+                <Stack.Screen name="Detail" component={Detail} options={{ title: "Detail" }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

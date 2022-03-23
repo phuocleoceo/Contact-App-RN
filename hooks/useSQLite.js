@@ -1,4 +1,4 @@
-import { SET_CONTACT } from "../redux/slices/contactSlice";
+import { SET_LIST_CONTACT, SET_CURRENT_CONTACT } from "../redux/slices/contactSlice";
 import { useDispatch } from 'react-redux';
 import * as SQLite from 'expo-sqlite';
 
@@ -58,7 +58,7 @@ export default function useSQLite()
         {
             tx.executeSql(
                 query, undefined,
-                (txObj, { rows: { _array } }) => { dispatch(SET_CONTACT(_array)); },
+                (txObj, { rows: { _array } }) => { dispatch(SET_LIST_CONTACT(_array)); },
                 (txObj, Error) => { console.log('Get Error ', Error); return []; }
             );
         });
@@ -71,7 +71,7 @@ export default function useSQLite()
         {
             tx.executeSql(
                 query, [id],
-                (txObj, { rows: { _array } }) => { dispatch(SET_CONTACT(_array)); },
+                (txObj, { rows: { _array } }) => { dispatch(SET_CURRENT_CONTACT(_array[0])); },
                 (txObj, Error) => { console.log('Get Error ', Error); return []; }
             );
         });

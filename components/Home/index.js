@@ -1,6 +1,6 @@
 import { RecyclerListView, DataProvider, LayoutProvider } from 'recyclerlistview';
 import { StyleSheet, View, Dimensions, Text, Image } from 'react-native';
-import useSQLite from "../hooks/useSQLite";
+import useSQLite from "../../hooks/useSQLite";
 import { useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import { FAB } from 'react-native-paper';
@@ -10,7 +10,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 export default function Home({ navigation })
 {
     const { GetData } = useSQLite();
-    const listContact = useSelector(state => state.contact);
+    const { listContact } = useSelector(state => state.contact);
 
     useEffect(() =>
     {
@@ -27,13 +27,15 @@ export default function Home({ navigation })
     {
         const { id, name, phone, email, img } = data;
         return (
-            <View key={id} style={styles.listItem} elevation={5}>
+            <View key={id} style={styles.listItem} elevation={5} >
                 {img == "" &&
-                    <Image style={styles.image} source={require("../assets/people.png")} />}
+                    <Image style={styles.image} source={require("../../assets/people.png")} />}
                 {img != "" &&
                     <Image style={styles.image} source={{ uri: img }} />}
                 <View style={styles.body}>
-                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.name} onPress={() => navigation.navigate("Detail", { id })}>
+                        {name}
+                    </Text>
                 </View>
             </View>
         )
