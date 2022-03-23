@@ -24,7 +24,7 @@ export const SeedTable = () =>
     db.transaction(tx =>
     {
         tx.executeSql(query);
-    })
+    });
 };
 
 export const DropTable = () =>
@@ -45,7 +45,7 @@ export const ClearTable = () =>
     });
 };
 
-export const GetContact = () =>
+export const GetData = () =>
 {
     const query = "SELECT * FROM Contact";
     db.transaction(tx =>
@@ -53,46 +53,46 @@ export const GetContact = () =>
         tx.executeSql(
             query, undefined,
             (txObj, { rows: { _array } }) => { return _array },
-            (txObj, Error) => { console.log('Error ', Error); return []; }
+            (txObj, Error) => { console.log('Get Error ', Error); return []; }
         );
     });
 };
 
-export const AddContact = (name, phone, email, img) =>
+export const AddData = (name, phone, email, img) =>
 {
     const query = "INSERT INTO Contact (name , phone, email, img) VALUES (?, ?, ?, ?,?)";
     db.transaction(tx =>
     {
         tx.executeSql(
             query, [name, phone, email, img],
-            (txObj, resultSet) => { return GetContact(); },
-            (txObj, error) => { console.log('Add Error', error); return state }
+            (txObj, resultSet) => { return GetData(); },
+            (txObj, error) => { console.log('Add Error', error); return [] }
         );
     });
 };
 
-export const UpdateContact = (id, name, phone, email, img) =>
+export const UpdateData = (id, name, phone, email, img) =>
 {
     const query = "UPDATE Contact SET name=?, phone=?, email=?,img=? WHERE id = ?";
     db.transaction(tx =>
     {
         tx.executeSql(
             query, [name, phone, email, img, id],
-            (txObj, resultSet) => { return GetContact(); },
-            (txObj, error) => { console.log('Update Error', error); return false }
+            (txObj, resultSet) => { return GetData(); },
+            (txObj, error) => { console.log('Update Error', error); return [] }
         );
     });
 };
 
-export const DeleteContact = (id) =>
+export const DeleteData = (id) =>
 {
     const query = "DELETE FROM Contact WHERE id= ?";
     db.transaction(tx =>
     {
         tx.executeSql(
             query, [id],
-            (txObj, resultSet) => { return GetContact(); },
-            (txObj, error) => { console.log('Delete Error', error); return false }
+            (txObj, resultSet) => { return GetData(); },
+            (txObj, error) => { console.log('Delete Error', error); return [] }
         );
     });
 };
