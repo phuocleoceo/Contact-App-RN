@@ -7,7 +7,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default function Home({ navigation })
 {
-    const [listContact, setListContact] = useState([{ id: 1, name: "phuoc", mobile: "032", email: "@" }]);
+    const [listContact, setListContact] = useState([{ id: 1, name: "phuoc", phone: "032", email: "@" }]);
 
     const _dataProvider = new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(listContact);
 
@@ -17,7 +17,7 @@ export default function Home({ navigation })
 
     const _rowRenderer = (type, data) =>
     {
-        const { id, name, mobile, email } = data;
+        const { id, name, phone, email } = data;
         return (
             <View key={id} style={styles.listItem} elevation={5}>
                 <Image style={styles.image} source={require("../assets/people.png")} />
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     body: {
-        marginLeft: 10,
-        marginRight: 10,
+        marginLeft: 15,
+        marginTop: 5,
         width: SCREEN_WIDTH - 10,
     },
     image: {
