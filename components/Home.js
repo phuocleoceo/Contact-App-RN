@@ -1,21 +1,21 @@
 import { RecyclerListView, DataProvider, LayoutProvider } from 'recyclerlistview';
 import { StyleSheet, View, Dimensions, Text, Image } from 'react-native';
-import { GET_CONTACT } from '../redux/slices/contactSlice';
-import { useSelector, useDispatch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import useSQLite from "../hooks/useSQLite";
+import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 import { FAB } from 'react-native-paper';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default function Home({ navigation })
 {
-    const dispatch = useDispatch();
+    const { GetData } = useSQLite();
     const listContact = useSelector(state => state.contact);
 
     useEffect(() =>
     {
-        dispatch(GET_CONTACT());
-    }, [dispatch]);
+        GetData();
+    }, []);
 
     const _dataProvider = new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(listContact);
 
@@ -25,10 +25,13 @@ export default function Home({ navigation })
 
     const _rowRenderer = (type, data) =>
     {
-        const { id, name, phone, email } = data;
+        const { id, name, phone, email, img } = data;
         return (
             <View key={id} style={styles.listItem} elevation={5}>
-                <Image style={styles.image} source={require("../assets/people.png")} />
+                {img == "" &&
+                    <Image style={styles.image} source={require("../assets/people.png")} />}
+                {img != "" &&
+                    <Image style={styles.image} source={{ uri: img }} />}
                 <View style={styles.body}>
                     <Text style={styles.name}>{name}</Text>
                 </View>
@@ -40,12 +43,15 @@ export default function Home({ navigation })
 
     return (
         <View style={styles.container}>
-            <RecyclerListView
-                style={{ flex: 1 }}
-                rowRenderer={_rowRenderer}
-                dataProvider={_dataProvider}
-                layoutProvider={_layoutProvider}
-            />
+            {
+                listContact.length > 0 &&
+                <RecyclerListView
+                    style={{ flex: 1 }}
+                    rowRenderer={_rowRenderer}
+                    dataProvider={_dataProvider}
+                    layoutProvider={_layoutProvider}
+                />
+            }
             <FAB
                 style={styles.fab}
                 icon="plus"

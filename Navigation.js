@@ -1,9 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CustomNavigationBar from './components/CustomNavigationBar';
 import { NavigationContainer } from '@react-navigation/native';
-import { SEED_CONTACT } from './redux/slices/contactSlice';
 import NewContact from './components/NewContact';
-import { useDispatch } from 'react-redux';
+import useSQLite from "./hooks/useSQLite";
 import React, { useEffect } from 'react';
 import Home from './components/Home';
 
@@ -11,11 +10,11 @@ const Stack = createNativeStackNavigator();
 
 export default function Navigation()
 {
-    const dispatch = useDispatch();
+    const { SeedTable } = useSQLite();
     useEffect(() =>
     {
-        dispatch(SEED_CONTACT());
-    }, [dispatch]);
+        SeedTable();
+    }, []);
 
     return (
         <NavigationContainer>

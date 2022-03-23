@@ -1,17 +1,16 @@
-import { StyleSheet, View, Image, TextInput, ScrollView, Alert, KeyboardAvoidingView } from 'react-native';
-import { ADD_CONTACT } from "../redux/slices/contactSlice";
+import { StyleSheet, View, Image, TextInput, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useForm, useController } from "react-hook-form";
 import { Button, IconButton } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { useDispatch } from 'react-redux';
+import useSQLite from "../hooks/useSQLite";
 import React, { useState } from 'react';
 
 export default function NewContact({ navigation })
 {
-    const dispatch = useDispatch();
     const { control, handleSubmit, formState: { errors } } = useForm();
-    const [image, setImage] = useState("");
+    const [img, setImg] = useState("");
+    const { AddData } = useSQLite();
 
     const Input = ({ name, control, placeHolder }) =>
     {
@@ -43,24 +42,24 @@ export default function NewContact({ navigation })
         let pickerResult = await ImagePicker.launchImageLibraryAsync(options);
         if (!pickerResult.cancelled)
         {
-            setImage('data:image/jpeg;base64,' + pickerResult.base64);
+            setImg('data:image/jpeg;base64,' + pickerResult.base64);
         }
     }
 
     const onSubmit = async (data) =>
     {
-        const newContact = { ...data, img: image };
-        await dispatch(ADD_CONTACT(newContact));
+        const newContact = { ...data, img };
+        await AddData(newContact);
         navigation.goBack();
     };
 
     return (
         <ScrollView style={styles.container}>
             <View style={styles.avatarIcon}>
-                {image == "" &&
-                    <Image style={styles.img} resizeMode="cover" source={require("../assets/people.png")} />}
-                {image != "" &&
-                    <Image style={styles.img} source={{ uri: image }} />}
+                {img == "" &&
+                    <Image style={styles.image} resizeMode="cover" source={require("../assets/people.png")} />}
+                {img != "" &&
+                    <Image style={styles.image} source={{ uri: img }} />}
                 <IconButton
                     icon="camera"
                     color="#fff"
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
-    img: {
+    image: {
         height: 300,
         width: "auto",
     },
