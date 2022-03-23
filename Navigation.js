@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SEED_CONTACT, GET_CONTACT } from './redux/slices/contactSlice';
 import CustomNavigationBar from './components/CustomNavigationBar';
 import { NavigationContainer } from '@react-navigation/native';
+import { SEED_CONTACT } from './redux/slices/contactSlice';
 import NewContact from './components/NewContact';
 import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
@@ -15,11 +15,6 @@ export default function Navigation()
     useEffect(() =>
     {
         dispatch(SEED_CONTACT());
-    }, [dispatch]);
-
-    useEffect(() =>
-    {
-        dispatch(GET_CONTACT());
     }, [dispatch]);
 
     return (

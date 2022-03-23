@@ -58,9 +58,22 @@ export const GetData = () =>
     });
 };
 
+export const GetDataById = (id) =>
+{
+    const query = "SELECT * FROM Contact WHERE id=?";
+    db.transaction(tx =>
+    {
+        tx.executeSql(
+            query, [id],
+            (txObj, { rows: { _array } }) => { return _array },
+            (txObj, Error) => { console.log('Get Error ', Error); return []; }
+        );
+    });
+};
+
 export const AddData = (name, phone, email, img) =>
 {
-    const query = "INSERT INTO Contact (name , phone, email, img) VALUES (?, ?, ?, ?,?)";
+    const query = "INSERT INTO Contact (name , phone, email, img) VALUES (?, ?, ?, ?)";
     db.transaction(tx =>
     {
         tx.executeSql(
@@ -73,7 +86,7 @@ export const AddData = (name, phone, email, img) =>
 
 export const UpdateData = (id, name, phone, email, img) =>
 {
-    const query = "UPDATE Contact SET name=?, phone=?, email=?,img=? WHERE id = ?";
+    const query = "UPDATE Contact SET name=?, phone=?, email=?,img=? WHERE id=?";
     db.transaction(tx =>
     {
         tx.executeSql(
@@ -86,7 +99,7 @@ export const UpdateData = (id, name, phone, email, img) =>
 
 export const DeleteData = (id) =>
 {
-    const query = "DELETE FROM Contact WHERE id= ?";
+    const query = "DELETE FROM Contact WHERE id=?";
     db.transaction(tx =>
     {
         tx.executeSql(

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import
 {
     SeedTable, DropTable, ClearTable, GetData,
-    AddData, UpdateData, DeleteData
+    GetDataById, AddData, UpdateData, DeleteData
 } from './database';
 
 
@@ -30,6 +30,11 @@ export const contactSlice = createSlice({
         {
             return GetData();
         },
+        GET_CONTACT_BY_ID: (state, action) =>
+        {
+            const { id } = action.payload;
+            return GetDataById(id);
+        },
         ADD_CONTACT: (state, action) =>
         {
             const { name, phone, email, img } = action.payload;
@@ -50,6 +55,6 @@ export const contactSlice = createSlice({
 });
 
 export const { SEED_CONTACT, DROP_CONTACT, CLEAR_CONTACT, GET_CONTACT,
-    ADD_CONTACT, UPDATE_CONTACT, DELETE_CONTACT } = contactSlice.actions;
+    GET_CONTACT_BY_ID, ADD_CONTACT, UPDATE_CONTACT, DELETE_CONTACT } = contactSlice.actions;
 
 export default contactSlice.reducer;
