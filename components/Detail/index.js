@@ -73,9 +73,10 @@ const styles = StyleSheet.create({
     },
     avatarImg: {
         flex: 1,
-        justifyContent: 'center',
         marginBottom: 15,
-        height: 270
+        height: 270,
+        width: 270,
+        alignSelf: "center"
     },
     cardTitle: {
         flex: 1,

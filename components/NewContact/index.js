@@ -36,9 +36,7 @@ export default function NewContact({ navigation })
             alert("Permission to access camera roll is required!");
             return;
         }
-        const options = {
-            base64: true
-        };
+        const options = { base64: true };
         let pickerResult = await ImagePicker.launchImageLibraryAsync(options);
         if (!pickerResult.cancelled)
         {
@@ -115,8 +113,9 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     avatarImage: {
-        height: 300,
-        width: "auto",
+        height: 200,
+        width: 200,
+        alignSelf: "center"
     },
     btn: {
         width: "45%",
