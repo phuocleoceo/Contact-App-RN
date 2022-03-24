@@ -59,6 +59,8 @@ export default function EditContact({ navigation, route })
     {
         const updateContact = { ...data, id, img: image };
         await UpdateData(updateContact);
+        // Set lai state cho Detail Screen
+        await GetDataById(id);
         navigation.goBack();
     };
 
