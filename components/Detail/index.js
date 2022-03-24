@@ -1,7 +1,7 @@
-import { StyleSheet, View, Image, ScrollView, Text } from 'react-native';
+import { Button, Card, Title, Paragraph } from 'react-native-paper';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import useSQLite from "../../hooks/useSQLite";
-import { Button } from 'react-native-paper';
 import { useSelector } from "react-redux";
 import React, { useEffect } from 'react';
 
@@ -29,39 +29,34 @@ export default function NewContact({ navigation, route })
 
     return (
         <ScrollView style={styles.container}>
-            <View style={styles.avatarIcon}>
+            <Card>
                 {img == "" &&
-                    <Image style={styles.image} source={require("../../assets/people.png")} />}
+                    <Card.Cover style={styles.avatarImg} source={require("../../assets/people.png")} />}
                 {img != "" &&
-                    <Image style={styles.image} source={{ uri: img }} />}
-            </View>
+                    <Card.Cover style={styles.avatarImg} source={{ uri: img }} />}
 
-            <View style={styles.formControl}>
-                <Icon name="id-card" size={35} color="#6200ee" style={styles.formIcon} />
-                <Text style={styles.textInfor}>{name}</Text>
-            </View>
+                <Card.Content style={styles.cardContent}>
+                    <Icon name="phone" size={35} color="#6200ee"
+                        style={{ flex: 1, top: 15 }} />
+                    <View style={{ flex: 4 }}>
+                        <Title>{name}</Title>
+                        <Paragraph>{phone}</Paragraph>
+                    </View>
+                    <Icon name="comment-dots" size={35} color="#6200ee"
+                        style={{ flex: 1, top: 15 }} />
+                </Card.Content>
 
-            <View style={styles.formControl}>
-                <Icon name="phone" size={35} color="#6200ee" style={styles.formIcon} />
-                <Text style={styles.textInfor}>{phone}</Text>
-            </View>
-
-            <View style={styles.formControl}>
-                <Icon name="voicemail" size={35} color="#6200ee" style={styles.formIcon} />
-                <Text style={styles.textInfor}>{email}</Text>
-            </View>
-
-            <View style={styles.btnBar}>
-                <Button style={styles.btn} mode="contained"
-                    icon="account-edit" onPress={() => handleEditContact(id)}>
-                    Edit
-                </Button>
-
-                <Button style={styles.btn} mode="contained"
-                    icon="delete-forever" onPress={() => handleDeleteContact(id)}>
-                    Delete
-                </Button>
-            </View>
+                <Card.Actions style={styles.btnBar}>
+                    <Button style={styles.btn} mode="contained"
+                        icon="account-edit" onPress={() => handleEditContact(id)}>
+                        Edit
+                    </Button>
+                    <Button style={styles.btn} mode="contained"
+                        icon="delete-forever" onPress={() => handleDeleteContact(id)}>
+                        Delete
+                    </Button>
+                </Card.Actions>
+            </Card>
         </ScrollView >
     );
 }
@@ -74,22 +69,11 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%"
     },
-    avatarIcon: {
+    avatarImg: {
         flex: 1,
-        display: "flex",
         justifyContent: 'center',
-        backgroundColor: "#ddd",
-        position: "relative",
-        marginBottom: 15
-    },
-    addPhoto: {
-        position: "absolute",
-        right: 0,
-        bottom: 0,
-    },
-    image: {
-        height: 300,
-        width: "auto",
+        marginBottom: 20,
+        height: 270
     },
     btnBar: {
         flexDirection: "row",
@@ -100,20 +84,8 @@ const styles = StyleSheet.create({
         width: "30%",
         padding: 5
     },
-    formControl: {
+    cardContent: {
         flex: 1,
-        flexDirection: "row",
-        margin: 10,
-    },
-    formIcon: {
-        flex: 1,
-        padding: 5,
-        width: 50,
-        height: 50,
-        left: 10
-    },
-    textInfor: {
-        flex: 3,
-        fontSize: 20
+        flexDirection: "row"
     },
 });

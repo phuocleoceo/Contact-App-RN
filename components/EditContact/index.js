@@ -95,13 +95,12 @@ export default function EditContact({ navigation, route })
             </View>
 
             <Button style={styles.btn} mode="contained"
-                icon="plus" onPress={handleSubmit(onSubmit)}>
+                icon="account-edit" onPress={handleSubmit(onSubmit)}>
                 Edit Contact
             </Button>
         </ScrollView >
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {
