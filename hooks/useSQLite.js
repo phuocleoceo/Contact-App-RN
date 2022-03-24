@@ -124,7 +124,7 @@ export default function useSQLite()
         db.transaction(tx =>
         {
             tx.executeSql(
-                query, null,
+                query, undefined,
                 (txObj, { rows: { _array } }) => { dispatch(SET_LIST_CONTACT(_array)); },
                 (txObj, Error) => { console.log('Get Error ', Error); return []; }
             );

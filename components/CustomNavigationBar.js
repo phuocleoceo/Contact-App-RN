@@ -35,9 +35,7 @@ export default function CustomNavigationBar({ navigation, back })
                     /> :
                     <Appbar.Content title="Contact App" />
             }
-            {
-                !back && <Appbar.Action icon="account-search" onPress={handleShow} />
-            }
+            {!back && <Appbar.Action icon="account-search" onPress={handleShow} />}
         </Appbar.Header>
     );
 }
