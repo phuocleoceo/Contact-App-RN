@@ -16,11 +16,16 @@ export default function NewContact({ navigation, route })
         GetDataById(id);
     }, []);
 
+    const handleEditContact = (id) =>
+    {
+        navigation.navigate("EditContact", { id });
+    };
+
     const handleDeleteContact = async (id) =>
     {
         await DeleteData(id);
         navigation.goBack();
-    }
+    };
 
     return (
         <ScrollView style={styles.container}>
@@ -48,7 +53,7 @@ export default function NewContact({ navigation, route })
 
             <View style={styles.btnBar}>
                 <Button style={styles.btn} mode="contained"
-                    icon="account-edit">
+                    icon="account-edit" onPress={() => handleEditContact(id)}>
                     Edit
                 </Button>
 

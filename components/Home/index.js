@@ -17,6 +17,10 @@ export default function Home({ navigation })
         GetData();
     }, []);
 
+    const handleNewContact = () => navigation.navigate("NewContact");
+
+    const handleViewDetail = (id) => navigation.navigate("Detail", { id });
+
     const _dataProvider = new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(listContact);
 
     const _layoutProvider = new LayoutProvider(
@@ -33,15 +37,13 @@ export default function Home({ navigation })
                 {img != "" &&
                     <Image style={styles.image} source={{ uri: img }} />}
                 <View style={styles.body}>
-                    <Text style={styles.name} onPress={() => navigation.navigate("Detail", { id })}>
+                    <Text style={styles.name} onPress={() => handleViewDetail(id)}>
                         {name}
                     </Text>
                 </View>
             </View>
         )
-    }
-
-    const handleNewContact = () => navigation.navigate("NewContact");
+    };
 
     return (
         <View style={styles.container}>

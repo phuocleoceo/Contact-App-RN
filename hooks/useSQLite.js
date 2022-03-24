@@ -91,8 +91,9 @@ export default function useSQLite()
         });
     };
 
-    const UpdateData = (id, name, phone, email, img) =>
+    const UpdateData = (updateData) =>
     {
+        const { id, name, phone, email, img } = updateData;
         const query = "UPDATE Contact SET name=?, phone=?, email=?,img=? WHERE id=?";
         db.transaction(tx =>
         {
