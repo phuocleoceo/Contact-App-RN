@@ -7,7 +7,12 @@ export default function CustomNavigationBar({ navigation, back })
     const { GetData, SearchData } = useSQLite();
     const [searchShow, setSearchShow] = useState(false);
 
-    const handleShow = () => setSearchShow(!searchShow);
+    const handleShow = () =>
+    {
+        setSearchShow(!searchShow)
+        // Khi thoat Search, tra lai full list contact
+        handleSearch("");
+    };
 
     const handleSearch = (query) =>
     {
