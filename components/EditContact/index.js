@@ -12,7 +12,7 @@ export default function EditContact({ navigation, route })
     const { id } = route.params;
     const { GetDataById, UpdateData } = useSQLite();
     const { currentContact: { name, phone, email, img } } = useSelector(state => state.contact);
-    // const [img, setImg] = useState("");
+    const [image, setImage] = useState(img);
 
     const { control, handleSubmit, formState: { errors } } = useForm();
 
@@ -51,13 +51,13 @@ export default function EditContact({ navigation, route })
         let pickerResult = await ImagePicker.launchImageLibraryAsync(options);
         if (!pickerResult.cancelled)
         {
-            setImg('data:image/jpeg;base64,' + pickerResult.base64);
+            setImage('data:image/jpeg;base64,' + pickerResult.base64);
         }
     }
 
     const onSubmit = async (data) =>
     {
-        const updateContact = { ...data, img };
+        const updateContact = { ...data, id, img: image };
         await UpdateData(updateContact);
         navigation.goBack();
     };
@@ -65,10 +65,10 @@ export default function EditContact({ navigation, route })
     return (
         <ScrollView style={styles.container}>
             <View style={styles.avatarIcon}>
-                {img == "" &&
-                    <Image style={styles.image} source={require("../../assets/people.png")} />}
-                {img != "" &&
-                    <Image style={styles.image} source={{ uri: img }} />}
+                {image == "" &&
+                    <Image style={styles.avatarImage} source={require("../../assets/people.png")} />}
+                {image != "" &&
+                    <Image style={styles.avatarImage} source={{ uri: image }} />}
                 <IconButton
                     icon="camera"
                     color="#fff"
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
-    image: {
+    avatarImage: {
         height: 300,
         width: "auto",
     },

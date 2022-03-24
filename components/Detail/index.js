@@ -35,12 +35,14 @@ export default function NewContact({ navigation, route })
                 {img != "" &&
                     <Card.Cover style={styles.avatarImg} source={{ uri: img }} />}
 
+                <Title style={styles.cardTitle}>{name}</Title>
+
                 <Card.Content style={styles.cardContent}>
                     <Icon name="phone" size={35} color="#6200ee"
-                        style={{ flex: 1, top: 15 }} />
-                    <View style={{ flex: 4 }}>
-                        <Title>{name}</Title>
-                        <Paragraph>{phone}</Paragraph>
+                        style={{ flex: 2, top: 15 }} />
+                    <View style={{ flex: 6 }}>
+                        <Title>{phone}</Title>
+                        <Paragraph>{email}</Paragraph>
                     </View>
                     <Icon name="comment-dots" size={35} color="#6200ee"
                         style={{ flex: 1, top: 15 }} />
@@ -72,8 +74,15 @@ const styles = StyleSheet.create({
     avatarImg: {
         flex: 1,
         justifyContent: 'center',
-        marginBottom: 20,
+        marginBottom: 15,
         height: 270
+    },
+    cardTitle: {
+        flex: 1,
+        fontSize: 27,
+        textAlign: "center",
+        marginTop: 5,
+        marginBottom: 10
     },
     btnBar: {
         flexDirection: "row",

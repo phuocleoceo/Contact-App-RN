@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 export default function NewContact({ navigation })
 {
     const { control, handleSubmit, formState: { errors } } = useForm();
-    const [img, setImg] = useState("");
+    const [image, setImage] = useState("");
     const { AddData } = useSQLite();
 
     const Input = ({ name, control, placeHolder }) =>
@@ -42,13 +42,13 @@ export default function NewContact({ navigation })
         let pickerResult = await ImagePicker.launchImageLibraryAsync(options);
         if (!pickerResult.cancelled)
         {
-            setImg('data:image/jpeg;base64,' + pickerResult.base64);
+            setImage('data:image/jpeg;base64,' + pickerResult.base64);
         }
     }
 
     const onSubmit = async (data) =>
     {
-        const newContact = { ...data, img };
+        const newContact = { ...data, img: image };
         await AddData(newContact);
         navigation.goBack();
     };
@@ -56,10 +56,10 @@ export default function NewContact({ navigation })
     return (
         <ScrollView style={styles.container}>
             <View style={styles.avatarIcon}>
-                {img == "" &&
-                    <Image style={styles.image} source={require("../../assets/people.png")} />}
-                {img != "" &&
-                    <Image style={styles.image} source={{ uri: img }} />}
+                {image == "" &&
+                    <Image style={styles.avatarImage} source={require("../../assets/people.png")} />}
+                {image != "" &&
+                    <Image style={styles.avatarImage} source={{ uri: image }} />}
                 <IconButton
                     icon="camera"
                     color="#fff"
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
-    image: {
+    avatarImage: {
         height: 300,
         width: "auto",
     },
