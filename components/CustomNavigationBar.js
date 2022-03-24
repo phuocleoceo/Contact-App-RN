@@ -21,17 +21,17 @@ export default function CustomNavigationBar({ navigation, back })
         <Appbar.Header>
             {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
             {
-                searchShow
-                    ?
+                (searchShow && !back) ?
                     <Searchbar
                         placeholder="Search"
                         style={{ width: "90%" }}
                         onChangeText={handleSearch}
-                    />
-                    :
+                    /> :
                     <Appbar.Content title="Contact App" />
             }
-            <Appbar.Action icon="account-search" onPress={handleShow} />
+            {
+                !back && <Appbar.Action icon="account-search" onPress={handleShow} />
+            }
         </Appbar.Header>
     );
 }

@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     cardTitle: {
         flex: 1,
-        fontSize: 27,
+        fontSize: 30,
         textAlign: "center",
         marginTop: 5,
         marginBottom: 10
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     btnBar: {
         flexDirection: "row",
         justifyContent: "space-evenly",
-        marginTop: 20
+        marginTop: 15
     },
     btn: {
         width: "30%",
