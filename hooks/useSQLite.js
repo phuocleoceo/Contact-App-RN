@@ -118,8 +118,21 @@ export default function useSQLite()
         });
     };
 
+    const SearchData = (data) =>
+    {
+        const query = `SELECT * FROM Contact WHERE name LIKE '%${data}%'`;
+        db.transaction(tx =>
+        {
+            tx.executeSql(
+                query, null,
+                (txObj, { rows: { _array } }) => { dispatch(SET_LIST_CONTACT(_array)); },
+                (txObj, Error) => { console.log('Get Error ', Error); return []; }
+            );
+        });
+    };
+
     return {
-        SeedTable, DropTable, ClearTable, GetData,
-        GetDataById, AddData, UpdateData, DeleteData
+        SeedTable, DropTable, ClearTable, GetData, GetDataById,
+        AddData, UpdateData, DeleteData, SearchData
     };
 }
