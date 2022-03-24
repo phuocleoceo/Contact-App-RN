@@ -9,9 +9,10 @@ export default function CustomNavigationBar({ navigation, back })
 
     const handleShow = () =>
     {
-        setSearchShow(!searchShow)
         // Khi thoat Search, tra lai full list contact
-        handleSearch("");
+        if (searchShow) handleSearch("");
+
+        setSearchShow(!searchShow)
     };
 
     const handleSearch = (query) =>
