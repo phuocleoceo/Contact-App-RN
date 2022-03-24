@@ -8,14 +8,19 @@ import React, { useEffect } from 'react';
 export default function NewContact({ navigation, route })
 {
     const { id } = route.params;
-    const { GetDataById } = useSQLite();
-    const { currentContact } = useSelector(state => state.contact);
-    const { name, phone, email, img } = currentContact;
+    const { GetDataById, DeleteData } = useSQLite();
+    const { currentContact: { name, phone, email, img } } = useSelector(state => state.contact);
 
     useEffect(() =>
     {
         GetDataById(id);
     }, []);
+
+    const handleDeleteContact = async (id) =>
+    {
+        await DeleteData(id);
+        navigation.goBack();
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -48,7 +53,7 @@ export default function NewContact({ navigation, route })
                 </Button>
 
                 <Button style={styles.btn} mode="contained"
-                    icon="delete-forever">
+                    icon="delete-forever" onPress={() => handleDeleteContact(id)}>
                     Delete
                 </Button>
             </View>
